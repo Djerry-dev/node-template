@@ -1,0 +1,23 @@
+services:
+  mysql:
+    image: mysql:8
+    container_name: nodebook-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 311006
+      MYSQL_DATABASE: nodebook_db
+      MYSQL_USER: pishelin
+      MYSQL_PASSWORD: 9421
+    ports:
+      - '3308:3306'
+    command:
+      [
+        '--character-set-server=utf8mb4',
+        '--collation-server=utf8mb4_0900_ai_ci',
+      ]
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./server/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql # mapeamento do script SQL para inicializar o banco de dados
+
+volumes:
+  mysql_data:
